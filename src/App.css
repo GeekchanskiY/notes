@@ -15,6 +15,9 @@
 :active {
 	outline: none;
 }
+body{
+  background-color: black;
+}
 
 a:focus,
 a:active {
@@ -125,3 +128,46 @@ legend {
   font-weight: 200;
 }
 .user a:active, .user a:visited{color: #fff}
+.NoteNode{
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid white;
+  border-radius: 10px;
+  text-align: center;
+  width: 50%;
+  margin-left: 25%;
+  margin-top: 30px;
+  padding: 10px;
+}
+.NoteNode h3{
+  font-weight: 800;
+}
+.NoteNode p{
+  margin: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 80%;
+  margin-left: 10%;
+}
+
+.NoteDetail{
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid white;
+  border-radius: 10px;
+  width: 50%;
+  margin-left: 25%;
+  margin-top: 30px;
+  padding: 10px;
+}
+#notetext{
+  width: 80%;
+  margin-left: 10%;
+  
+  padding: 5px;
+  border: 1px solid black;
+}
+#notename{
+  width: 30%;
+  margin-left: 33%;
+  text-align: center;
+  font-size: 25px;
+}
