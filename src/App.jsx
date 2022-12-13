@@ -5,6 +5,8 @@ import {Routes, Route, BrowserRouter, Link} from "react-router-dom";
 import NoteList from './components/note_list';
 import React from 'react';
 import NoteDetail from './components/note';
+import UserPage from './components/user';
+import UserList from './components/user_list';
 
 class App extends React.Component{
   constructor(props){
@@ -41,7 +43,9 @@ class App extends React.Component{
           <Header username={this.state.UserName}></Header>
           <Routes>
             <Route path='/' element={<NoteList/>} />
-            <Route path='/note/:id' element={<NoteDetail/>} />
+            <Route path='/:id' element={<NoteDetail/>} />
+            <Route path='/user/:id' element={<UserPage/>} />
+            <Route path='/user/' element={<UserPage/>} />
           </Routes>
           <Link to='/'> aaa</Link>
         </BrowserRouter>

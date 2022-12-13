@@ -59,10 +59,12 @@ export default class NoteDetail extends React.Component{
         })
     }
     refresh(){
+        
         this.setState({
             note: this.state.note,
             updated_note: this.state.note
         })
+        document.getElementById('notename').value = "AAA"
     }
 
     render(){
@@ -70,7 +72,10 @@ export default class NoteDetail extends React.Component{
         return <div className="NoteDetail">
             <input type="text" id="notename" value={this.state.updated_note.name} onChange={(e) => {this.update_state_name(e)}}/> <span>{this.state.note.creator}</span> <br /> <br />
             <input type="text" id="notetext" value={this.state.updated_note.text} onChange={(e) => {this.update_state_text(e)}}/> <br />
-            
+            <div className="buttons">
+                <input type="button"  value="refresh" onClick={(e) => {this.refresh()}}/>
+                <input type="button"  value="update"/>
+            </div>
         </div>
     }
 }

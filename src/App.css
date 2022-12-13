@@ -3,6 +3,7 @@
 	padding: 0px;
 	margin: 0px;
 	border: none;
+  color: #fff;
 }
 
 *,
@@ -170,4 +171,7 @@ legend {
   margin-left: 33%;
   text-align: center;
   font-size: 25px;
+}
+.NoteDetail input[type=button]{
+  margin-left: 15px;
 }
