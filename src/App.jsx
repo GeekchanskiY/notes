@@ -7,6 +7,8 @@ import React from 'react';
 import NoteDetail from './components/note';
 import UserPage from './components/user';
 import UserList from './components/user_list';
+import Login from './components/login';
+import Register from './components/register';
 
 class App extends React.Component{
   constructor(props){
@@ -14,8 +16,72 @@ class App extends React.Component{
     this.state = {
       UserId: 0,
       UserName: "Guest",
-
+      Password: "000",
+      is_admin: false,
+      token: undefined,
+      expires: undefined,
     }
+
+  }
+
+  update_token(){
+    if (this.state.expires !== undefined){
+      if (Date.now() >= this.state.expires){
+        const requestOptions = {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ UserName: this.state.UserName, Password: this.state.Password })
+      };
+        fetch('https://localhost:44366/api/user/login/', requestOptions)
+            .then(response => {
+              if (response.ok) {response.json()}
+              else {response.json()}
+            })
+            .then(data => this.setState({ 
+              UserId: this.state.UserId,
+              UserName: this.state.UserName,
+              Password: this.state.Password,
+              is_admin: this.state.is_admin,
+              token: data.token,
+              expires: new Date(data.expires_in)
+            }));
+      }
+    }
+  }
+
+  get_token(username, password){
+
+    
+    let status = 0
+    const requestOptions = {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ UserName: username, Password: password })
+    };
+    fetch('https://localhost:44366/api/user/login/', requestOptions)
+    .then(response => {
+      if (response.ok) {response.json()}
+      else {response.json()}
+    })
+    .then(data => {
+
+      // Хз как ошибки выдаются при неправильных кредах.
+
+      if (data.error != undefined){
+        this.setState({ 
+          UserId: this.state.UserId,
+          UserName: this.state.UserName,
+          Password: this.state.Password,
+          is_admin: this.state.is_admin,
+          token: data.token,
+          expires: new Date(data.expires_in)
+        });
+        status = 1;
+      } else {
+        status = data.error;
+      }
+      return status;
+  });
 
   }
 
@@ -46,8 +112,9 @@ class App extends React.Component{
             <Route path='/:id' element={<NoteDetail/>} />
             <Route path='/user/:id' element={<UserPage/>} />
             <Route path='/user/' element={<UserPage/>} />
+            <Route path='/login' element={<Login/>} />
+            <Route path='/register' element={<Register/>} />
           </Routes>
-          <Link to='/'> aaa</Link>
         </BrowserRouter>
       </div>
     );

@@ -138,17 +138,30 @@ legend {
   margin-left: 25%;
   margin-top: 30px;
   padding: 10px;
+  color: #000;
 }
 .NoteNode h3{
   font-weight: 800;
+  color: #000;
 }
+.NoteNode small, .NoteNode span, .NoteNode a{
+  color: #000;
+}
+
+.NoteNode a{
+  text-decoration: underline;
+}
+
 .NoteNode p{
   margin: 10px;
   border: 1px solid black;
   border-radius: 10px;
   width: 80%;
   margin-left: 10%;
+  color: #000;
+  padding: 10px;
 }
+
 
 .NoteDetail{
   background-color: rgba(255, 255, 255, 0.9);
@@ -157,6 +170,7 @@ legend {
   width: 50%;
   margin-left: 25%;
   margin-top: 30px;
+  color: #000;
   padding: 10px;
 }
 #notetext{
@@ -174,4 +188,36 @@ legend {
 }
 .NoteDetail input[type=button]{
   margin-left: 15px;
+}
+.NoteDetail a{
+  color: #000;
+}
+
+.logregform{
+  width: 40%;
+  margin-left: 30%;
+  border-radius: 20px;
+  margin-top: 15vh;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #000;
+  text-align: center;
+}
+
+.logregform h1, .logregform span{
+  color: #000;
+  font-weight: 600;
+}
+.logregform h1{
+  font-size: 25px;
+  font-weight: 700;
+}
+.logregform input{
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-top: 5px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.9);
+  font-weight: 600;
 }

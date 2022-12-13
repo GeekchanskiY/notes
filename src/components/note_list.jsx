@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default class NoteList extends React.Component{
     constructor(props){
@@ -51,6 +52,7 @@ export default class NoteList extends React.Component{
                     <h3>{note_json.name}</h3>
                     <small>{note_json.creator}</small>
                     <p>{note_json.text}</p>
+                    <Link to={'/'+index}>Edit</Link> <br />
                     <span>{note_json.creation_date.getDate()}.{note_json.creation_date.getMonth()}.{note_json.creation_date.getFullYear()}</span>
                 </div>
             })}
