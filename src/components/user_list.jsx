@@ -1,13 +1,11 @@
 import React from "react";
-import { redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 
 class UserListItem extends React.Component{
     constructor(props){
         super(props);
-        if (!this.props.user.is_admin || this.props.user.is_admin == undefined){
-            redirect('/login')
-        }
+        
     }
 
     render(){
@@ -23,6 +21,9 @@ export default class UserList extends React.Component{
     }
 
     render(){
+        if (!this.props.user.is_admin || this.props.user.is_admin == undefined){
+            return <Navigate to={'/login'} replace={true} />
+        }
         return <div></div>
     }
 }

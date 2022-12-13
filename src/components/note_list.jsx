@@ -1,9 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 export default class NoteList extends React.Component{
     constructor(props){
         super(props);
+        
         this.get_fake_notes();
     }
 
@@ -43,6 +44,9 @@ export default class NoteList extends React.Component{
     }
 
     render(){
+        if (this.props.token == undefined){
+            return <Navigate to={'/login'} replace={true} />
+        }
         
         return <div>
             {this.state.notes.map((note_json, index) => {

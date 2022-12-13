@@ -54,7 +54,7 @@ class App extends React.Component{
     
     let status = 0
     const requestOptions = {
-      method: 'GET',
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ UserName: username, Password: password })
     };
@@ -67,7 +67,7 @@ class App extends React.Component{
 
       // Хз как ошибки выдаются при неправильных кредах.
 
-      if (data.error != undefined){
+      if (data.message != undefined){
         this.setState({ 
           UserId: this.state.UserId,
           UserName: this.state.UserName,
@@ -78,7 +78,7 @@ class App extends React.Component{
         });
         status = 1;
       } else {
-        status = data.error;
+        status = data.message;
       }
       return status;
   });
@@ -111,7 +111,7 @@ class App extends React.Component{
             <Route path='/' element={<NoteList/>} />
             <Route path='/:id' element={<NoteDetail/>} />
             <Route path='/user/:id' element={<UserPage/>} />
-            <Route path='/user/' element={<UserPage/>} />
+            <Route path='/user/' element={<UserPage name={"AAA"} is_admin={undefined} />} />
             <Route path='/login' element={<Login/>} />
             <Route path='/register' element={<Register/>} />
           </Routes>
