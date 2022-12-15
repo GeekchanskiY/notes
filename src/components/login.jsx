@@ -1,40 +1,50 @@
 import React from "react";
+import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+import { login }  from "../features/JWTSlice";
+import { login_request } from "../utils/user_requests";
 
-export default class Login extends React.Component{
-    constructor(props){
-        super(props);
+export default function Login (){
+    const jwt_state = useSelector((state) => state.jwt)
+    const dispatch = useDispatch()
+
+    const [log, setLogin] = useState('login')
+    const [password, setPassword] = useState('password')
+    const [error, setError] = useState()
+
+    const navigate = useNavigate()
+
+    const login_user = async () => {
+        let data = await login_request(log, password)
+        if (data.error != undefined){
+            dispatch(login(data))
+            navigate('/')
+        } else {
+            setError('invalid credentials')
+        }
     }
-    login(){
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                email: document.getElementById('login_form').value,
-                password: document.getElementById('password_form').value
-            })
-          };
-          fetch('https://localhost:44366/api/user/', requestOptions)
-          .then(response => {
-            if (response.ok) {response.json()}
-            else {response.json()}
-          })
-          .then(data => {
-      
-            console.log(data)
-            
-        })
-            .catch(err => {console.log(err)})
+    const fake_login = async () => {
+        dispatch(login({
+            authentificated: true,
+            token: '1000-1000-abcd-abcd',
+            username: 'DMT',
+            role: 'admin',
+            email: 'dmt@mail.ru'
+        }))
+        navigate('/')
     }
-    render(){
-        return <div>
+    return(
+        <div>
             <div className="logregform">
                 <h1>Login</h1> <br />
+                <span style={{color: 'red'}}>{error}</span><br />
                 <span>Username:</span><br />
-                <input type="text" placeholder="Enter username" id="username_form"/><br /> <br />
+                <input type="text" placeholder="Enter username" id="username_form" onChange={(e) => {setLogin(e.target.value)}}/><br /> <br />
                 <span>Password:</span> <br />
-                <input type="password" placeholder="Enter password" id="password_form"/> <br /> <br />
-                <input type="submit" value="Login" onClick={(e) => this.login()}/>
+                <input type="password" placeholder="Enter password" id="password_form" onChange={(e) => {setPassword(e.target.value)}}/> <br /> <br />
+                <input type="submit" value="Login" onClick={(e) => fake_login()}/>
             </div>
         </div>
-    }
+    )
 }

@@ -16,40 +16,6 @@ export default class UserPage extends React.Component{
 
     update_user(){
 
-        const requestOptions = {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                UId: user_id,
-                UserName: username,
-                Password: password,
-                RoleName: role
-            })
-          };
-          fetch('https://localhost:44366/api/user/', requestOptions)
-          .then(response => {
-            if (response.ok) {response.json()}
-            else {response.json()}
-          })
-          .then(data => {
-      
-            // Хз как ошибки выдаются при неправильных кредах.
-      
-            if (data.message != undefined){
-              this.setState({ 
-                UserId: this.state.UserId,
-                UserName: this.state.UserName,
-                Password: this.state.Password,
-                is_admin: this.state.is_admin,
-                token: data.token,
-                expires: new Date(data.expires_in)
-              });
-              status = 1;
-            } else {
-              status = data.message;
-            }
-            return status;
-        });
     }
 
     render(){

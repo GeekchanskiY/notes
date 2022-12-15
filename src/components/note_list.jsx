@@ -1,19 +1,21 @@
 import React from "react";
 import { Link, Navigate } from "react-router-dom";
+import { GetAllNotes, GetUserNotes, AddNote } from "../utils/note_requests";
+import { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+import { login }  from "../features/JWTSlice";
+import { login_request } from "../utils/user_requests";
+import { GetAllNotes_request, AddNote_request, GetUserNotes_request } from "../utils/note_requests";
 
-export default class NoteList extends React.Component{
-    constructor(props){
-        super(props);
-        
-        this.get_fake_notes();
-    }
+export default function NoteList (){
+        const [notes, setNotes] = useState([])
+        const navigate = useNavigate()
 
-    get_notes(){
         
-    }
-    get_fake_notes(){
-        this.state = {
-            notes: [
+
+        const get_my_notes = async () => {
+            setNotes([
                 {
                     Note: 0,
                     creator: "DMT",
@@ -39,17 +41,12 @@ export default class NoteList extends React.Component{
                     text: "Kill Me Please",
                     creation_date: new Date()
                 }
-            ]
+            ])
         }
-    }
-
-    render(){
-        if (this.props.token == undefined){
-            return <Navigate to={'/login'} replace={true} />
-        }
+        useEffect(() => {get_my_notes()})
         
-        return <div>
-            {this.state.notes.map((note_json, index) => {
+        return (<div>
+            {notes.map((note_json, index) => {
                 console.log(note_json)
                 console.log(index)
                 return <div className="NoteNode" key={index+"note_node"}>
@@ -60,6 +57,5 @@ export default class NoteList extends React.Component{
                     <span>{note_json.creation_date.getDate()}.{note_json.creation_date.getMonth()}.{note_json.creation_date.getFullYear()}</span>
                 </div>
             })}
-        </div>
-    }
+        </div>)
 }
