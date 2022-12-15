@@ -12,7 +12,7 @@ export default function NoteList (){
         const [notes, setNotes] = useState([])
         const navigate = useNavigate()
         const jwt_state = useSelector((state) => state.jwt)
-
+        const [pinned, setPinned] = useState([])
         
 
         const get_my_notes = async () => {
@@ -55,18 +55,26 @@ export default function NoteList (){
             }
             
         })
+        const reorder_notes = () => {
+            let old_notes = notes
+            let new_notes = []
+
+        }
         
         return (<div>
             {notes.map((note_json, index) => {
                 console.log(note_json)
                 console.log(index)
                 return <div className="NoteNode" key={index+"note_node"}>
+                    <button>pin</button>
                     <h3>{note_json.name}</h3>
                     <small>{note_json.creator}</small>
                     <p>{note_json.text}</p>
                     <Link to={'/'+index}>Edit</Link> <br />
                     <span>{note_json.creation_date.getDate()}.{note_json.creation_date.getMonth()}.{note_json.creation_date.getFullYear()}</span>
+
                 </div>
             })}
+            <Link to={'/users'}>a</Link>
         </div>)
 }
