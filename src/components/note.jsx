@@ -1,11 +1,37 @@
 import React from "react";
+import { Link, Navigate } from "react-router-dom";
+import { GetAllNotes, GetUserNotes, AddNote } from "../utils/note_requests";
+import { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+import { login }  from "../features/JWTSlice";
+import { login_request } from "../utils/user_requests";
+import { GetAllNotes_request, AddNote_request, GetUserNotes_request } from "../utils/note_requests";
 
-export default class NoteDetail extends React.Component{
-    constructor(props){
-        super(props);
-        this.get_fake_notes()
-    }
-    get_fake_notes(){
+export default function NoteDetail(){
+
+
+    const [name, setName] = useState("")
+    const [text, setText] = useState("")
+    const [creator, setCreator] = useState()
+    const [noteId, setNoteId] = useState(1)
+    const [creationDate, setCreationDate] = useState(new Date())
+
+    const navigate = useNavigate()
+    const jwt_state = useSelector((state) => state.jwt)
+
+
+    useEffect(() => {
+        if (jwt_state.authentificated == false){
+            navigate('/login')
+        } else if (creator == undefined) {
+            get_fake_notes()
+        }
+        
+    })
+        
+    
+    const get_fake_notes = () => {
         let notes= [
             {
                 Note: 0,
@@ -34,48 +60,23 @@ export default class NoteDetail extends React.Component{
             }
         ]
         let num = window.location.pathname.split('/').reverse()[0]
-        this.state = {
-            note: notes[num],
-            updated_note: notes[num]
-            
-        }
+
+        setName(notes[num].name)
+        setText(notes[num].text)
+        setCreationDate(notes[num].creation_date)
+        setNoteId(notes[num].Note)
+        setCreator(notes[num].creator)
     }
 
-    update_state_name(e){
-        let upd = this.state.updated_note
-        upd.name = e.target.value
-        this.setState({
-            note: this.state.note,
-            updated_note: upd
-        })
-    }
 
-    update_state_text(e){
-        let upd = this.state.updated_note
-        upd.text = e.target.value
-        this.setState({
-            note: this.state.note,
-            updated_note: upd
-        })
-    }
-    refresh(){
-        
-        this.setState({
-            note: this.state.note,
-            updated_note: this.state.note
-        })
-        document.getElementById('notename').value = "AAA"
-    }
-
-    render(){
-        console.log('aaa')
-        return <div className="NoteDetail">
-            <input type="text" id="notename" value={this.state.updated_note.name} onChange={(e) => {this.update_state_name(e)}}/> <span>{this.state.note.creator}</span> <br /> <br />
-            <input type="text" id="notetext" value={this.state.updated_note.text} onChange={(e) => {this.update_state_text(e)}}/> <br />
+   return (<div className="NoteDetail">
+            <input type="text" id="notename" value={name} onChange={(e) => {setName(e.target.value)}}/> <span>{creator}</span> <br /> <br />
+            <textarea id="notetext" value={text} onChange={(e) => {setText(e.target.value)}} > </textarea> <br />
             <div className="buttons">
-                <input type="button"  value="refresh" onClick={(e) => {this.refresh()}}/>
-                <input type="button"  value="update"/>
+                <input type="button"  value="Update"/>
+                <input type="button" value="Delete" />
+                <input type="button" value="Home" onClick={(e) => {navigate('/')}}/>
             </div>
-        </div>
-    }
+        </div>)
+    
 }

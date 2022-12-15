@@ -192,6 +192,10 @@ legend {
 .NoteDetail a{
   color: #000;
 }
+.NoteDetail textarea{
+  height: 300px;
+  max-height: 300px;
+}
 
 .logregform{
   width: 40%;
@@ -220,4 +224,14 @@ legend {
   color: #fff;
   background-color: rgba(0, 0, 0, 0.9);
   font-weight: 600;
+}
+.buttons{
+ margin-top: 20px;
+}
+.buttons input{
+  color: #000;
+  border: 1px solid black;
+  padding: 5px;
+  border-radius: 15px;
+  width: 20%;
 }

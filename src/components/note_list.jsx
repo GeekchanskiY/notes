@@ -11,6 +11,7 @@ import { GetAllNotes_request, AddNote_request, GetUserNotes_request } from "../u
 export default function NoteList (){
         const [notes, setNotes] = useState([])
         const navigate = useNavigate()
+        const jwt_state = useSelector((state) => state.jwt)
 
         
 
@@ -43,7 +44,17 @@ export default function NoteList (){
                 }
             ])
         }
-        useEffect(() => {get_my_notes()})
+        useEffect(() => {
+            console.log(notes)
+            if (jwt_state.authentificated == false){
+                navigate('/login')
+                // if to remove deadlock
+            } else if (notes.length == 0 || notes == undefined || notes == null){
+                get_my_notes()
+                console.log('aaa')
+            }
+            
+        })
         
         return (<div>
             {notes.map((note_json, index) => {
